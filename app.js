@@ -110,7 +110,7 @@ startNextQuestion()
                                         console.log(e.target.innerHTML)
                                         // console.log('correct')
                                         $(this).css('background','green')
-                                        questionCount++
+                                        
                                         count++
                                         score ++
                                         addClickedClass()
@@ -123,7 +123,7 @@ startNextQuestion()
                                                 console.log('wrong answer')
                                                 console.log('Correct answer is ' + data.results[count].correct_answer)
                                                 $(this).css('background','red')
-                                                questionCount++
+                                                
                                                 count++
                                                 addClickedClass()
                                                 setTimeout (timeOutAlert,500)
