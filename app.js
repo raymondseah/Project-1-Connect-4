@@ -67,10 +67,16 @@ startNextQuestion()
                                 //merge the correct answer and incorrect answer into an array
                                 //use said array to populate the choices text randomly via for loop
                                 let incorrectAnswerArr = data.results[count].incorrect_answers
+                                // let incorrectAnswerArr_de = decodeURIComponent(data.results[count].incorrect_answers)
                                 console.log(incorrectAnswerArr)
+                                // console.log(incorrectAnswerArr_de)
                                 let b = data.results[count].correct_answer
+                                // let b_de = decodeURIComponent(data.results[count].correct_answer)
                                 console.log(b)
+                                // console.log(b_de)
 
+                                // let allOption_de = incorrectAnswerArr_de.concat(b_de)
+                                // console.log(allOption_de)
                                 let allOption = incorrectAnswerArr.concat(b)
                                 console.log(allOption)
                                 // let allOption = incorrectAnswerArr.push(b)
@@ -83,10 +89,13 @@ startNextQuestion()
                                 //define the choices into an array of class of choice-actual-text
                                 //now all 4 of the same class is in an array
                                 let choices = $('.choice-actual-text')
+                                
                                 console.log(choices)
                     
                                 //populate the classes
                                 for ( i = 0 ; i <numberOfChoices; i++){
+                                // choices[i].append(allOption[i])
+
                                 choices[i].append(allOption[i])
                                 }
                             }
@@ -94,7 +103,8 @@ startNextQuestion()
 
                 }
                 
-                populateQuestionAndOption(count)       
+                populateQuestionAndOption(count)    
+         
 
                 var checkAnswer = function (count) {
                     $('.choice-actual-text').on('click', function(e){
@@ -143,6 +153,7 @@ startNextQuestion()
                 }
 
                 checkAnswer(count)
+
                 
 
                 function clearQuestionAndOption() {
@@ -166,19 +177,30 @@ startNextQuestion()
                     }
                 }
 
-            
                 $('.next-button-container').on('click',function(e){
-                        count++
-                        questionCount++
-                        clearQuestionAndOption()
-                        clearClickedClass()
-                        console.log(count)
-                        populateQuestionAndOption(count)
-      
+                    count++
+                    questionCount++
+                    clearQuestionAndOption()
+                    clearClickedClass()
+                    console.log(count)
+                    populateQuestionAndOption(count)
+  
+            })
+
+                function forceNextButtonFunction () {
+
+                    count++
+                    questionCount++
+                    clearQuestionAndOption()
+                    clearClickedClass()
+                    console.log(count)
+                    populateQuestionAndOption(count)
+                    
+  
 
 
-
-                })
+                }
+            
 
 
                 function addClickedClass (){
@@ -199,6 +221,28 @@ startNextQuestion()
                         return false
                     }
                 }
+
+                function refreshTimer () {
+
+                var timeLeft = 10;
+                var elem = document.getElementById('some_div');
+    
+                var timerId = setInterval(countdown, 1000);
+    
+                    function countdown() {
+                        if (timeLeft == -1) {
+                        clearInterval(timerId);
+                        refreshTimer()
+                        forceNextButtonFunction();
+                            } else {
+                        elem.innerHTML = timeLeft + ' seconds remaining';
+                        timeLeft--;
+                        }
+                    }
+                }
+
+                refreshTimer()
+                countdown()   
 
             }
         })
