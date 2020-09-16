@@ -26,6 +26,8 @@ Approach:
 
 3. Merge the incorrect and correct choices into an array in order to populate the 4 div tag in the HTML via for loop or else the correct answer will always be in the same option.
 
+    3a. using shuffle function Fisher-Yates (aka Knuth) Shuffle
+
 4. Created a function to populate the question and choices based on the index count.
 
     4a. In this function there is a ending quiz condition, which is when the count reach max number of questions, there will be a score page and a restart button

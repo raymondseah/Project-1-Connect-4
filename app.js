@@ -11,6 +11,9 @@ startNextQuestion()
             error:function(){   
                 alert('Api Failed')
             }, success:function(data){
+
+
+                //define starting count, score and questionCount
                 var score = 0
                 var count = 0
                 var questionCount = 1
@@ -27,9 +30,12 @@ startNextQuestion()
                 console.log(answerContainerArray)
                 
                 console.log(data.results[count].correct_answer)
-                    
+                
+                //populate the question and choices function
                 var populateQuestionAndOption = function (count) {
-                    
+
+
+                    //end quiz condition, occur when max number of question is true
                     if (checkCurrentQuestionCount(count) == true){
                         
 
@@ -57,7 +63,13 @@ startNextQuestion()
 
 
                     } else {    
+                                // activate timer
                                 timer()
+
+
+                                //populate the question and choice containers
+                                // concat the incorrect answer array with the correct answers
+                                // for loop to randomly 
                                 questionPrefix.innerHTML = questionCount
                       
                                 $('.question').append(data.results[count].question)
@@ -75,7 +87,13 @@ startNextQuestion()
                                 let allOption = incorrectAnswerArr.concat(b)
                                 console.log(allOption)
 
-              
+                                var shufflearr = allOption
+
+                                // shuffle function Fisher-Yates (aka Knuth) Shuffle
+                                shuffle(shufflearr);
+                                console.log(shufflearr);
+               
+                                
                                 let numberOfChoices = allOption.length
       
                                 let choices = $('.choice-actual-text')
@@ -86,7 +104,7 @@ startNextQuestion()
                                 for ( i = 0 ; i <numberOfChoices; i++){
          
 
-                                choices[i].append(allOption[i])
+                                choices[i].append(shufflearr[i])
                                 }
                             }
 
@@ -111,7 +129,7 @@ startNextQuestion()
 
                                         $(this).css('background','green')
                                         
-     
+                                        count++
                                         score ++
                                         addClickedClass()
                                         setTimeout (timeOutAlert,500)
@@ -123,7 +141,7 @@ startNextQuestion()
                                                 console.log('wrong answer')
                                                 console.log('Correct answer is ' + data.results[count].correct_answer)
                                                 $(this).css('background','red')
- 
+                                                count++
                                                 addClickedClass()
                                                 setTimeout (timeOutAlert,500)
                                                 return
@@ -244,6 +262,25 @@ startNextQuestion()
 
                         
                 }
+
+                function shuffle(array) {
+                    var currentIndex = array.length, temporaryValue, randomIndex;
+                  
+                    // While there remain elements to shuffle...
+                    while (0 !== currentIndex) {
+                  
+                      // Pick a random remaining element...
+                      randomIndex = Math.floor(Math.random() * currentIndex);
+                      currentIndex -= 1;
+                  
+                      // And swap random index with the current element.
+                      temporaryValue = array[currentIndex];
+                      array[currentIndex] = array[randomIndex];
+                      array[randomIndex] = temporaryValue;
+                    }
+                  
+                    return array;
+                  }
 
 
 
