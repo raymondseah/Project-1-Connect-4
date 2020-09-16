@@ -6,7 +6,9 @@ Idea is to create a trivia Quiz game from a open trivia Quiz API data base.
 Uses HTML, CSS & Javascript.
 
 HTML for basic content
+
 CSS for making the content appeal to users
+
 Javacript for creating the logic and approach to the Quiz, how to get the quiz data, populate the DOM and winning condition
 
 
