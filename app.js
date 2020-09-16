@@ -189,7 +189,7 @@ startNextQuestion()
                     }
                 }
 
-
+                // do various things when next is pressed
                 function forceNextButtonFunction () {
                     count++
                     questionCount++
@@ -214,6 +214,7 @@ startNextQuestion()
                     alert('Please go to next question')
                 }
 
+                //check for end game condition if the count reaches max number of question, if true will stop the game
                 function checkCurrentQuestionCount (count) {
                     if (count >= numberOfQuestion) {
                         console.log('reached max question')
@@ -226,7 +227,7 @@ startNextQuestion()
 
 
 
-
+                // timer function with some stop condition
                 function timer() {
                     var timeLeft = 5;
                     var elem = document.getElementById('some_div');
@@ -262,7 +263,8 @@ startNextQuestion()
 
                         
                 }
-
+                
+                // suffle function to suffle the choices for appending randomly to choices tag 
                 function shuffle(array) {
                     var currentIndex = array.length, temporaryValue, randomIndex;
                   
