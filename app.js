@@ -25,8 +25,6 @@ startNextQuestion()
                 
                 console.log(answerContainer)
                 console.log(answerContainerArray)
-        
-                // checkAnswer()
                 
                 console.log(data.results[count].correct_answer)
                     
@@ -54,47 +52,39 @@ startNextQuestion()
                             
                             cover.css('display','block')
 
+                            
+
 
 
                     } else {    
-
+                                timer()
                                 questionPrefix.innerHTML = questionCount
-                                //Append the question property to the question class
+                      
                                 $('.question').append(data.results[count].question)
-                    
-                                //the correct and incorrect answer is give as an object and array respectively
-                                //what i want to do is update the choices text randomly
-                                //merge the correct answer and incorrect answer into an array
-                                //use said array to populate the choices text randomly via for loop
+             
                                 let incorrectAnswerArr = data.results[count].incorrect_answers
-                                // let incorrectAnswerArr_de = decodeURIComponent(data.results[count].incorrect_answers)
+              
                                 console.log(incorrectAnswerArr)
-                                // console.log(incorrectAnswerArr_de)
-                                let b = data.results[count].correct_answer
-                                // let b_de = decodeURIComponent(data.results[count].correct_answer)
-                                console.log(b)
-                                // console.log(b_de)
 
-                                // let allOption_de = incorrectAnswerArr_de.concat(b_de)
-                                // console.log(allOption_de)
+                                let b = data.results[count].correct_answer
+              
+                                console.log(b)
+                  
+
+
                                 let allOption = incorrectAnswerArr.concat(b)
                                 console.log(allOption)
-                                // let allOption = incorrectAnswerArr.push(b)
-                                // console.log(incorrectAnswerArr)
-                                // console.log(allOption)
-                    
-                                //get the length to use in the iteration 
+
+              
                                 let numberOfChoices = allOption.length
-                    
-                                //define the choices into an array of class of choice-actual-text
-                                //now all 4 of the same class is in an array
+      
                                 let choices = $('.choice-actual-text')
                                 
                                 console.log(choices)
                     
-                                //populate the classes
+            
                                 for ( i = 0 ; i <numberOfChoices; i++){
-                                // choices[i].append(allOption[i])
+         
 
                                 choices[i].append(allOption[i])
                                 }
@@ -118,10 +108,10 @@ startNextQuestion()
                                     if (e.target.innerHTML === data.results[count].correct_answer) {
     
                                         console.log(e.target.innerHTML)
-                                        // console.log('correct')
+
                                         $(this).css('background','green')
                                         
-                                        count++
+     
                                         score ++
                                         addClickedClass()
                                         setTimeout (timeOutAlert,500)
@@ -133,8 +123,7 @@ startNextQuestion()
                                                 console.log('wrong answer')
                                                 console.log('Correct answer is ' + data.results[count].correct_answer)
                                                 $(this).css('background','red')
-                                                
-                                                count++
+ 
                                                 addClickedClass()
                                                 setTimeout (timeOutAlert,500)
                                                 return
@@ -154,6 +143,11 @@ startNextQuestion()
 
                 checkAnswer(count)
 
+                $('.next-button-container').on('click',function(e){
+              
+                    forceNextButtonFunction()
+                    return
+                  })
                 
 
                 function clearQuestionAndOption() {
@@ -177,18 +171,8 @@ startNextQuestion()
                     }
                 }
 
-                $('.next-button-container').on('click',function(e){
-                    count++
-                    questionCount++
-                    clearQuestionAndOption()
-                    clearClickedClass()
-                    console.log(count)
-                    populateQuestionAndOption(count)
-  
-            })
 
                 function forceNextButtonFunction () {
-
                     count++
                     questionCount++
                     clearQuestionAndOption()
@@ -222,27 +206,46 @@ startNextQuestion()
                     }
                 }
 
-                function refreshTimer () {
 
-                var timeLeft = 10;
-                var elem = document.getElementById('some_div');
+
+
+                function timer() {
+                    var timeLeft = 5;
+                    var elem = document.getElementById('some_div');
+                    var timerId = setInterval(countdown, 1000);
+
+
+                        $('.next-button-container').on('click',function(e){
+                            stopTimer()
+                            return
+                        })
+                
+ 
+                        function countdown() {
+                            if (timeLeft == -1) {
+                            clearTimeout(timerId);
+                            timerId = null;
+                            forceNextButtonFunction();
+
+                            
+                            
     
-                var timerId = setInterval(countdown, 1000);
-    
-                    function countdown() {
-                        if (timeLeft == -1) {
-                        clearInterval(timerId);
-                        refreshTimer()
-                        forceNextButtonFunction();
-                            } else {
-                        elem.innerHTML = timeLeft + ' seconds remaining';
-                        timeLeft--;
+                                } else {
+                            elem.innerHTML = timeLeft + ' seconds remaining';
+                            timeLeft--;
+        
+                            }
                         }
-                    }
+                        
+                        function stopTimer(){
+                            clearTimeout(timerId)
+                            timerId = null
+                        }
+
+                        
                 }
 
-                refreshTimer()
-                countdown()   
+
 
             }
         })
